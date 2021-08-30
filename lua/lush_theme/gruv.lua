@@ -53,6 +53,8 @@ local bg3  = hsl(27, 10, 36)
 local bg4  = hsl(28, 11, 44)
 local red = hsl(2, 75, 46)
 local red_light = hsl(6, 96, 59)
+local orange = hsl(24, 88, 45)
+local orange_light = hsl(27, 99, 55)
 local yellow = hsl(40, 73, 49)
 local yellow_light = hsl(42, 95, 58)
 local green = hsl(60, 71, 35)
@@ -61,6 +63,7 @@ local blue = hsl(183, 33, 40)
 local blue_light = hsl(157, 16, 58)
 local purple = hsl(333, 34, 54)
 local purple_light = hsl(344, 47, 68)
+local purple_bg = hsl(328, 20, 33)
 local aqua = hsl(122, 21, 51)
 local aqua_light = hsl(104, 35, 62)
 
@@ -78,7 +81,7 @@ local theme = lush(function()
     -- You can uncomment these and leave them empty to disable any
     -- styling for that group (meaning they mostly get styled as Normal)
     -- or leave them commented to apply vims default colouring or linking.
-    -- Comment      { fg=fg4 }, -- any comment
+    Comment      { fg=bg4 }, -- any comment
     ColorColumn  { bg=bg2 }, -- used for the columns set with 'colorcolumn'
     -- Conceal      { }, -- placeholder characters substituted for concealed text (see 'conceallevel')
     -- Cursor       { }, -- character under the cursor
@@ -110,9 +113,9 @@ local theme = lush(function()
     -- MsgSeparator { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg      { }, -- |more-prompt|
     NonText      { fg=bg3 }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    Normal       { bg=bg }, -- normal text
+    Normal       { bg=bg, fg=fg }, -- normal text
     NormalFloat  { bg=bg }, -- Normal text in floating windows.
-    -- NormalNC     { }, -- normal text in non-current windows
+    NormalNC     { fg=fg4 }, -- normal text in non-current windows
     Pmenu        { bg=bg }, -- Popup menu: normal item.
     PmenuSel     { bg=bg2 }, -- Popup menu: selected item.
     PmenuSbar    { bg=bg }, -- Popup menu: scrollbar.
@@ -130,7 +133,7 @@ local theme = lush(function()
     TabLine      { bg = bg }, -- tab pages line, not active tab page label
     TabLineFill  { bg = bg }, -- tab pages line, where there are no labels
     TabLineSel   { bg = bg }, -- tab pages line, active tab page label
-    -- Title        { }, -- titles for output from ":set all", ":autocmd" etc.
+    Title        { fg = purple_light }, -- titles for output from ":set all", ":autocmd" etc.
     -- Visual       { }, -- Visual mode selection
     -- VisualNOS    { }, -- Visual mode selection when vim is "Not Owning the Selection".
     -- WarningMsg   { }, -- warning messages
@@ -143,8 +146,8 @@ local theme = lush(function()
     -- default,
     -- Uncomment and edit if you want more specific syntax highlighting.
 
-    -- Constant       { }, -- (preferred) any constant
-    -- String         { }, --   a string constant: "this is a string"
+    Constant       { fg=blue_light}, -- (preferred) any constant
+    String         { fg=green_light}, --   a string constant: "this is a string"
     -- Character      { }, --  a character constant: 'c', '\n'
     -- Number         { }, --   a number constant: 234, 0xff
     -- Boolean        { }, --  a boolean constant: TRUE, false
@@ -153,21 +156,21 @@ local theme = lush(function()
     Identifier     { fg=blue_light }, -- (preferred) any variable name
     -- Function       { }, -- function name (also: methods for classes)
 
-    Statement      { fg=purple, gui="bold" }, -- (preferred) any statement
+    Statement      { fg=red_light }, -- (preferred) any statement
     -- Conditional    { }, --  if, then, else, endif, switch, etc.
     -- Repeat         { }, --   for, do, while, etc.
     -- Label          { }, --    case, default, etc.
-    -- Operator       { }, -- "sizeof", "+", "*", etc.
+    Operator       { fg=fg }, -- "sizeof", "+", "*", etc.
     -- Keyword        { }, --  any other keyword
     -- Exception      { }, --  try, catch, throw
 
-    -- PreProc        { }, -- (preferred) generic Preprocessor
+    PreProc        { fg=purple_light}, -- (preferred) generic Preprocessor
     -- Include        { }, --  preprocessor #include
     -- Define         { }, --   preprocessor #define
     -- Macro          { }, --    same as Define
     -- PreCondit      { }, --  preprocessor #if, #else, #endif, etc.
 
-    -- Type           { }, -- (preferred) int, long, char, etc.
+    Type           { fg=red_light}, -- (preferred) int, long, char, etc.
     -- StorageClass   { }, -- static, register, volatile, etc.
     -- Structure      { }, --  struct, union, enum, etc.
     -- Typedef        { }, --  A typedef
@@ -228,58 +231,66 @@ local theme = lush(function()
     -- TSError -> Error for example, so you do not have to define these unless
     -- you explicitly want to support Treesitter's improved syntax awareness.
 
-    -- TSAnnotation         { };    -- For C++/Dart attributes, annotations that can be attached to the code to denote some kind of meta information.
-    -- TSAttribute          { };    -- (unstable) TODO: docs
-    -- TSBoolean            { };    -- For booleans.
-    TSCharacter          { fg=green_light };    -- For characters.
-    TSComment            { fg=bg3 };    -- For comment blocks.
-    -- TSConstructor        { };    -- For constructor calls and definitions: ` { }` in Lua, and Java constructors.
-    TSConditional        { fg=red_light };    -- For keywords related to conditionnals.
-    TSConstant           { fg=fg};    -- For constants
-    TSConstBuiltin       { fg=purple_light };    -- For constant that are built in the language: `nil` in Lua.
-    -- TSConstMacro         { };    -- For constants that are defined by macros: `NULL` in C.
-    TSError              { gui="bold" };    -- For syntax/parser errors.
-    -- TSException          { };    -- For exception related keywords.
-    TSField              { fg=blue_light };    -- For fields.
-    -- TSFloat              { };    -- For floats.
-    TSFunction           { fg=aqua_light };    -- For function (calls and definitions).
-    -- TSFuncBuiltin        { };    -- For builtin functions: `table.insert` in Lua.
-    -- TSFuncMacro          { };    -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
-    TSInclude            { fg=aqua };    -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
-    TSKeyword            { fg=red_light };    -- For keywords that don't fall in previous categories.
-    TSKeywordFunction    { fg=red_light };    -- For keywords used to define a fuction.
-    -- TSLabel              { };    -- For labels: `label:` in C and `:label:` in Lua.
-    TSMethod             { fg=blue_light };    -- For method calls and definitions.
-    -- TSNamespace          { };    -- For identifiers referring to modules and namespaces.
-    -- TSNone               { };    -- TODO: docs
-    TSNumber             { fg=purple_light };    -- For all numbers
-    TSOperator           { fg=fg };    -- For any operator: `+`, but also `->` and `*` in C.
-    TSParameter          { fg=blue_light };    -- For parameters of a function.
-    -- TSParameterReference { };    -- For references to parameters of a function.
-    -- TSProperty           { };    -- Same as `TSField`.
-    -- TSPunctDelimiter     { };    -- For delimiters ie: `.`
-    TSPunctBracket       { fg=fg };    -- For brackets and parens.
-    -- TSPunctSpecial       { };    -- For special punctutation that does not fall in the catagories before.
-    TSRepeat             { fg=red_light};    -- For keywords related to loops.
-    TSString             { fg=green_light };    -- For strings.
-    -- TSStringRegex        { };    -- For regexes.
-    -- TSStringEscape       { };    -- For escape characters within a string.
-    TSSymbol             { fg=blue_light };    -- For identifiers referring to symbols or atoms.
-    TSType               { fg=red_light };    -- For types.
-    -- TSTypeBuiltin        { };    -- For builtin types.
-    TSVariable           { fg=fg };    -- Any variable name that does not have another highlight.
-    -- TSVariableBuiltin    { };    -- Variable names that are defined by the languages, like `this` or `self`.
+    TSAnnotation         { fg=fg },    -- For C++/Dart attributes, annotations that can be attached to the code to denote some kind of meta information.
+    -- TSAttribute          { },    -- (unstable) TODO: docs
+    TSBoolean            { fg=purple_light },    -- For booleans.
+    TSCharacter          { fg=green_light },    -- For characters.
+    TSComment            { fg=bg4 },    -- For comment blocks.
+    -- TSConstructor        { },    -- For constructor calls and definitions: ` { }` in Lua, and Java constructors.
+    TSConditional        { fg=red_light },    -- For keywords related to conditionnals.
+    TSConstant           { fg=fg},    -- For constants
+    TSConstBuiltin       { fg=purple_light },    -- For constant that are built in the language: `nil` in Lua.
+    TSConstMacro         { fg=aqua_light },    -- For constants that are defined by macros: `NULL` in C.
+    TSError              { gui="bold" },    -- For syntax/parser errors.
+    -- TSException          { },    -- For exception related keywords.
+    TSField              { fg=blue_light },    -- For fields.
+    -- TSFloat              { },    -- For floats.
+    TSFunction           { fg=aqua_light },    -- For function (calls and definitions).
+    -- TSFuncBuiltin        { },    -- For builtin functions: `table.insert` in Lua.
+    -- TSFuncMacro          { },    -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
+    TSInclude            { fg=aqua },    -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
+    TSKeyword            { fg=red_light },    -- For keywords that don't fall in previous categories.
+    TSKeywordFunction    { fg=red_light },    -- For keywords used to define a fuction.
+    TSLabel              { fg=fg },    -- For labels: `label:` in C and `:label:` in Lua.
+    TSMethod             { fg=blue_light },    -- For method calls and definitions.
+    TSNamespace          { fg=blue_light },    -- For identifiers referring to modules and namespaces.
+    TSNone               { fg=fg},    -- TODO: docs
+    TSNumber             { fg=blue_light },    -- For all numbers
+    TSOperator           { fg=fg },    -- For any operator: `+`, but also `->` and `*` in C.
+    TSParameter          { fg=blue_light },    -- For parameters of a function.
+    -- TSParameterReference { },    -- For references to parameters of a function.
+    -- TSProperty           { },    -- Same as `TSField`.
+    -- TSPunctDelimiter     { },    -- For delimiters ie: `.`
+    -- TSPunctBracket       { fg=fg },    -- For brackets and parens.
+    -- TSPunctSpecial       { },    -- For special punctutation that does not fall in the catagories before.
+    TSRepeat             { fg=red_light},    -- For keywords related to loops.
+    TSString             { fg=green_light },    -- For strings.
+    -- TSStringRegex        { },    -- For regexes.
+    -- TSStringEscape       { },    -- For escape characters within a string.
+    TSSymbol             { fg=blue_light },    -- For identifiers referring to symbols or atoms.
+    TSType               { fg=red_light },    -- For types.
+    TSTypeBuiltin        { fg=red_light },    -- For builtin types.
+    TSVariable           { fg=fg },    -- Any variable name that does not have another highlight.
+    -- TSVariableBuiltin    { },    -- Variable names that are defined by the languages, like `this` or `self`.
 
-    -- TSTag                { };    -- Tags like html tag names.
-    -- TSTagDelimiter       { };    -- Tag delimiter like `<` `>` `/`
-    -- TSText               { };    -- For strings considered text in a markup language.
-    -- TSEmphasis           { };    -- For text to be represented with emphasis.
-    -- TSUnderline          { };    -- For text to be represented with an underline.
-    -- TSStrike             { };    -- For strikethrough text.
-    -- TSTitle              { };    -- Text that is part of a title.
-    TSLiteral            { fg=aqua };    -- Literal text.
-    -- TSURI                { };    -- Any URI like a link or email.
+    -- TSTag                { },    -- Tags like html tag names.
+    -- TSTagDelimiter       { },    -- Tag delimiter like `<` `>` `/`
+    TSText               { fg=fg },    -- For strings considered text in a markup language.
+    TSEmphasis           { gui="bold" },    -- For text to be represented with emphasis.
+    -- TSUnderline          { },    -- For text to be represented with an underline.
+    -- TSStrike             { },    -- For strikethrough text.
+    -- TSTitle              { },    -- Text that is part of a title.
+    TSLiteral            { fg=aqua },    -- Literal text.
+    -- TSURI                { },    -- Any URI like a link or email.
     ELNormal             { bg=bg, fg=blue_light },
+    rainbowcol1          { bg=bg, fg=yellow_light },
+    rainbowcol2          { bg=bg, fg=green_light },
+    rainbowcol3          { bg=bg, fg=aqua_light },
+    rainbowcol4          { bg=bg, fg=blue_light },
+    rainbowcol5          { bg=bg, fg=purple_light },
+    rainbowcol6          { bg=bg, fg=red_light },
+    rainbowcol7          { bg=bg, fg=orange_light },
+    IndentBlankline          { bg=bg, fg=purple_bg },
   }
 end)
 
