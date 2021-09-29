@@ -107,7 +107,7 @@ local theme = lush(function()
     -- Substitute   { }, -- |:substitute| replacement text highlighting
     LineNr       { fg=fg4}, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
     CursorLineNr { fg=fg4}, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-    -- MatchParen   { }, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+    MatchParen   { gui="bold" }, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     ModeMsg      { fg=bg3 }, -- 'showmode' message (e.g., "-- INSERT -- ")
     -- MsgArea      { }, -- Area for messages and cmdline
     -- MsgSeparator { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
@@ -124,15 +124,15 @@ local theme = lush(function()
     -- QuickFixLine { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
     Search       { bg = fg, fg = bg  }, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
     -- SpecialKey   { }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
-    -- SpellBad     { }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
-    -- SpellCap     { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
-    -- SpellLocal   { }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
-    -- SpellRare    { }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
+    SpellBad     { fg=red_light }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
+    SpellCap     { fg=yellow_light }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
+    SpellLocal   { fg=blue_light }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
+    SpellRare    { fg=blue_light }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
     StatusLine   { fg=fg, bg=bg }, -- status line of current window
     StatusLineNC { fg=fg, bg=bg }, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
     TabLine      { bg = bg }, -- tab pages line, not active tab page label
     TabLineFill  { bg = bg }, -- tab pages line, where there are no labels
-    TabLineSel   { bg = bg }, -- tab pages line, active tab page label
+    TabLineSel   { gui = "bold" }, -- tab pages line, active tab page label
     Title        { fg = purple_light }, -- titles for output from ":set all", ":autocmd" etc.
     -- Visual       { }, -- Visual mode selection
     -- VisualNOS    { }, -- Visual mode selection when vim is "Not Owning the Selection".
@@ -290,7 +290,9 @@ local theme = lush(function()
     rainbowcol5          { bg=bg, fg=purple_light },
     rainbowcol6          { bg=bg, fg=red_light },
     rainbowcol7          { bg=bg, fg=orange_light },
-    IndentBlankline          { bg=bg, fg=purple_bg },
+    IndentBlankline      { bg=bg, fg=purple_bg },
+    TabLineSelWrite      { gui="bold,italic" },
+    TabLineWrite         { gui="italic" },
   }
 end)
 
