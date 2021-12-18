@@ -291,8 +291,8 @@ local theme = lush(function()
     rainbowcol6          { bg=bg, fg=red_light },
     rainbowcol7          { bg=bg, fg=orange_light },
     IndentBlankline      { bg=bg, fg=purple_bg },
-    TabLineSelWrite      { gui="bold,italic" },
-    TabLineWrite         { gui="italic" },
+    TabLineSelWrite      { bg=bg, fg=purple_bg, gui="bold,italic" },
+    TabLineWrite         { bg=bg, fg=purple_bg, gui="italic" },
   }
 end)
 
